@@ -38,6 +38,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
+    'sorl.thumbnail',
+
+    'apps.social_objects',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,12 +67,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'apps.social_objects.context_processors.categories',
+                'apps.social_objects.context_processors.socials',
             ],
             'debug': True,
         },
     },
 ]
 
+DEBUG = True
+THUMBNAIL_DEBUG = True
+THUMBNAIL_FORCE_OVERWRITE = True
 
 ROOT_URLCONF = 'apps.urls'
 

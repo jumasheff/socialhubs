@@ -1,14 +1,18 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-# from . import views
+from . import views
 
 urlpatterns = [
 	# Home
-	# url(r'^$', views.home, name='home'),
+	url(r'^$', views.home, name='home'),
+
+	url(r'^search/$', 'apps.views.search', name='search'),
 
 	# Admin
 	url(r'^admin/', include(admin.site.urls)),
+
+	url(r'^', include('apps.social_objects.urls')),
 
 ]
 
