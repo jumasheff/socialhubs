@@ -7,8 +7,6 @@ urlpatterns = [
 	# Home
 	url(r'^$', views.home, name='home'),
 
-	url(r'^search/$', 'apps.views.search', name='search'),
-
 	# Admin
 	url(r'^admin/', include(admin.site.urls)),
 

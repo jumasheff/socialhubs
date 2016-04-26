@@ -34,12 +34,16 @@ class SocialObject(models.Model):
 	latitude = models.DecimalField(u'Широта', max_digits=20, decimal_places=17)
 	longitude = models.DecimalField(u'Долгота', max_digits=20, decimal_places=17)
 
+	def __unicode__(self):
+		return self.title
+
 	def get_latitude(self):
 		return '%s' % self.latitude
 
 	def get_longitude(self):
 		return '%s' % self.longitude
 
-	def __unicode__(self):
-		return self.title
+	@models.permalink
+	def social_url(self):
+		return ('social_item', (), {'slug': self.category.slug, 'id': self.id})
 
