@@ -1,7 +1,7 @@
 # coding: utf-8
 from django.shortcuts import render
 
-from .models import Category, SocialObject
+from .models import Category, SocialHub
 
 
 def category(request, slug):
@@ -13,7 +13,7 @@ def category(request, slug):
 
 def social_item(request, slug, id):
 	context = {}
-	context['title'] = SocialObject.objects.get(id=id).title
+	context['title'] = SocialHub.objects.get(id=id).title
 	category = Category.objects.get(slug=slug)
-	context['social'] = SocialObject.objects.get(category=category, id=id)
+	context['social'] = SocialHub.objects.get(category=category, id=id)
 	return render(request, 'social.html', context)

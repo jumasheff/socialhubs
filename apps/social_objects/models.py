@@ -20,16 +20,21 @@ class Category(models.Model):
 		verbose_name_plural=u'Категории'
 
 
-class SocialObject(models.Model):
+class SocialHub(models.Model):
 	category = models.ForeignKey(Category, verbose_name=u'Категория', related_name='ctaegory_objects')
 
-	cover = models.ImageField(u'Обложка', upload_to='social/objects/cover/')
+	cover = models.ImageField(u'Обложка', upload_to='social-hub/cover/')
 	title = models.CharField(u'Название', max_length=500)
 	description = models.TextField(u'Описание')
 
+	address = models.CharField(u'Адрес', max_length=300, blank=True, null=True)
 	phone = models.CharField(u'Телефон', max_length=50)
+	email = models.EmailField(u'E-mail', blank=True, null=True)
+	www = models.CharField(u'www', max_length=256, blank=True, null=True)
 
-	email = models.EmailField(u'E-mail')
+	bank = models.CharField(u'Банк', max_length=256, blank=True, null=True)
+	special_account = models.CharField(u'Спец. счет', max_length=256, blank=True, null=True)
+	personal_account = models.CharField(u'Лицевой счет', max_length=256, blank=True, null=True)
 
 	latitude = models.DecimalField(u'Широта', max_digits=20, decimal_places=17)
 	longitude = models.DecimalField(u'Долгота', max_digits=20, decimal_places=17)
@@ -47,3 +52,12 @@ class SocialObject(models.Model):
 	def social_url(self):
 		return ('social_item', (), {'slug': self.category.slug, 'id': self.id})
 
+	class Meta:
+		verbose_name='Социальный центр'
+		verbose_name_plural=u'Социальные центры'
+
+
+class ImageSocialHub(models.Model):
+	social_hub = models.ForeignKey(SocialHub, verbose_name=u'', related_name='images')
+	title = models.CharField(u'Название', max_length=256)
+	image = models.ImageField(u'Картинка', upload_to='social-hub/image')

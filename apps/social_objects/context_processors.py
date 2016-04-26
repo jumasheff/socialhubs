@@ -1,4 +1,4 @@
-from .models import Category, SocialObject
+from .models import Category, SocialHub
 
 
 def categories(request):
@@ -9,5 +9,5 @@ def categories(request):
 
 def socials(request):
 	context = {}
-	context['socials'] = SocialObject.objects.all()
+	context['socials'] = SocialHub.objects.all()
 	return context
