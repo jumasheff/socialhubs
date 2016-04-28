@@ -2,6 +2,10 @@
 {% load thumbnail %}
 {% block content %}
 
+<input id="id_lat" name="lat" type="hidden" value="42.780486"/>
+<input id="id_lng" name="lng" type="hidden" value="74.667276" />
+
+
 <ul class="nav nav-pills">
 	<li><a href="/">Все</a></li>
 	{% for category in categories %}
@@ -15,10 +19,12 @@
 <script type='text/javascript'>
 	var images = [];
 	var markers = [];
+	var latall = $('#id_lat').attr('value')
+	var lngall = $('#id_lng').attr('value')
 	function initialize() {
 		var mapOptions = {
 			zoom:  10,
-			center: new google.maps.LatLng(42.780486, 74.667276),
+			center: new google.maps.LatLng(latall, lngall),
 			mapTypeId: google.maps.MapTypeId.TERRAIN,
 			zoomControl: true,
 			scrollwheel: false,
@@ -70,5 +76,6 @@
 		initialize();
 	});
 </script>
+
 
 {% endblock content %}

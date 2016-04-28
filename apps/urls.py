@@ -12,6 +12,8 @@ urlpatterns = [
 
 	url(r'^', include('apps.social_objects.urls')),
 
+	url(r'^search/$', 'apps.views.search_road_map', name='search_road_map'),
+
 ]
 
 
