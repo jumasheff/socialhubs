@@ -19,22 +19,21 @@
 <script src="/templates/js/jquery.geolocation.js"></script>
 
 
-
 <script>
-	$(document).ready(function () {
-		function getLocation() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(showPosition);
-			}
-		}
+    $(document).ready(function () {
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+        }
 
-		function showPosition(position) {
-			var lat = position.coords.latitude;
-			var lng = position.coords.longitude;
-			$("#id_lat").val(lat);
-			$("#id_lng").val(lng);
-		}
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            $("#id_lat").val(lat);
+            $("#id_lng").val(lng);
+        }
 
-		getLocation();
-	});
+        getLocation();
+    });
 </script>

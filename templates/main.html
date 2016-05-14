@@ -2,93 +2,95 @@
 {% load thumbnail %}
 {% block content %}
 
-<input id="id_lat" name="lat" type="hidden" value="42.780486"/>
-<input id="id_lng" name="lng" type="hidden" value="74.667276" />
+    <input id="id_lat" name="lat" type="hidden" value="42.780486"/>
+    <input id="id_lng" name="lng" type="hidden" value="74.667276"/>
 
 
-<ul class="nav nav-pills">
-	<li><a href="/">Все</a></li>
-	{% for category in categories %}
-		<li><a id="category_link_{{ category.id }}" data-id="{{ category.id }}" href="/?category={{ category.id }}">{{ category.title }}</a></li>
-	{% endfor %}
-</ul>
+    <ul class="nav nav-pills">
+        <li><a href="/">Все</a></li>
+        {% for category in categories %}
+            <li><a id="category_link_{{ category.id }}" data-id="{{ category.id }}"
+                   href="/?category={{ category.id }}">{{ category.title }}</a></li>
+        {% endfor %}
+    </ul>
 
- <!-- Map  -->
-<div id='map_canvas'></div>
+    <!-- Map  -->
+    <div id='map_canvas'></div>
 
-<script type='text/javascript'>
-	var images = [];
-	var markers = [];
-	var latall = $('#id_lat').attr('value')
-	var lngall = $('#id_lng').attr('value')
-	function initialize() {
-		var mapOptions = {
-			zoom:  10,
-			center: new google.maps.LatLng(latall, lngall),
-			mapTypeId: google.maps.MapTypeId.TERRAIN,
-			zoomControl: true,
-			scrollwheel: false,
-			zoomControlOptions: {
-				position: google.maps.ControlPosition.LEFT_CENTER
-			},
-		}
-		var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    <script type='text/javascript'>
+        var images = [];
+        var markers = [];
+        var latall = $('#id_lat').attr('value')
+        var lngall = $('#id_lng').attr('value')
+        function initialize() {
+            var mapOptions = {
+                zoom: 10,
+                center: new google.maps.LatLng(latall, lngall),
+                mapTypeId: google.maps.MapTypeId.TERRAIN,
+                zoomControl: true,
+                scrollwheel: false,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_CENTER
+                },
+            }
+            var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-		function setMarkers(map, locations) {
-			var bounds = new google.maps.LatLngBounds();
-			for (var i = 0; i < locations.length; i++) {
-				var social = locations[i];
-				var myLatLng = new google.maps.LatLng(social[1], social[2]);
-				var marker = new google.maps.Marker({
-					position: myLatLng,
-					map: map,
-					icon: social[3],
-					clickable: true,
-					title: social[0],
-					zIndex: 1000
-				});
-				bounds.extend(marker.position);
-				marker.info = new google.maps.InfoWindow({
-					content: social[4]
-				});
-				google.maps.event.addListener(marker, 'click', function() {
-					for (var i = 0; i < locations.length; i++) {
-						markers[i].info.close();
-					}
-					this.info.open(map, this);
-				});
-				map.fitBounds(bounds);
-				markers.push(marker);
-			}
-		}
+            function setMarkers(map, locations) {
+                var bounds = new google.maps.LatLngBounds();
+                for (var i = 0; i < locations.length; i++) {
+                    var social = locations[i];
+                    var myLatLng = new google.maps.LatLng(social[1], social[2]);
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        icon: social[3],
+                        clickable: true,
+                        title: social[0],
+                        zIndex: 1000
+                    });
+                    bounds.extend(marker.position);
+                    marker.info = new google.maps.InfoWindow({
+                        content: social[4]
+                    });
+                    google.maps.event.addListener(marker, 'click', function () {
+                        for (var i = 0; i < locations.length; i++) {
+                            markers[i].info.close();
+                        }
+                        this.info.open(map, this);
+                    });
+                    map.fitBounds(bounds);
+                    markers.push(marker);
+                }
+            }
 
-		{% for social in socials %}
-			{% thumbnail social.category.point "50x50" crop="center" format="PNG" as im %}
-				images.push(['{{ social.title }}', {{ social.get_latitude }}, {{ social.get_longitude }}, '{{ im.url }}', '<h4>{{ social.title }}</h4><a href="{{ social.social_url }}">Подробней</a>']);
-			{% endthumbnail %}
-		{% endfor %}
+            {% for social in socials %}
+                {% thumbnail social.category.point "50x50" crop="center" format="PNG" as im %}
+                    images.push(['{{ social.title }}', {{ social.get_latitude }}, {{ social.get_longitude }}, '{{ im.url }}', '<h4>{{ social.title }}</h4><a href="{{ social.social_url }}">Подробней</a>']);
+                {% endthumbnail %}
+            {% endfor %}
 
-		setMarkers(map, images);
-	}
-
-
-	$(function() {
-		initialize();
-	});
-</script>
+            setMarkers(map, images);
+        }
 
 
-// <script>
-// $('.b-button-search').on('click', function(e){
-// 	e.preventDefault();
-// 	search_url = $('.b-form_main').attr('action');
-// 	$.get(search_url + '?' + $('.b-form_main').serialize())
-// 	.done(function(response) {
-// 		$('.results').html(response);
-// 		$('#map_canvas').hide();
-// 	})
-// });
-// </script>
+        $(function () {
+            initialize();
+        });
+    </script>
+
+
+    //
+    <script>
+        // $('.b-button-search').on('click', function(e){
+        // 	e.preventDefault();
+        // 	search_url = $('.b-form_main').attr('action');
+        // 	$.get(search_url + '?' + $('.b-form_main').serialize())
+        // 	.done(function(response) {
+        // 		$('.results').html(response);
+        // 		$('#map_canvas').hide();
+        // 	})
+        // });
+        // </script>
 
 
 
