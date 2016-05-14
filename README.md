@@ -10,6 +10,11 @@ An educational project for It-Attractor coding club members
  * activate virtualenv: `source venv/bin/activate`
  * install project dependencies: `pip install -r requirements.txt`
  * run migrations: `manage.py migrate`
+ * load fixtures: `manage.py loaddata apps/fixtures.json`
+ 
+## Run tests
+ * cd to the project root
+ * bash run_tests.sh
  
 ## Default settings
  * the project uses SQLite (for now)
