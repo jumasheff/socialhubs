@@ -17,4 +17,4 @@ An educational project for It-Attractor coding club members
  
 ## Credits
  * Alexey Karahanidi
- * Kairat Omurbekov
+ * Kairat Omurbek uulu
